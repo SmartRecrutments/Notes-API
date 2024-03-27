@@ -43,7 +43,7 @@ Start the server
 
 
 > [!TIP]
-> You can choose if want to seed the in-mememory DB by setting  
+> You can choose if want to seed the in-memory DB by setting  
 ` "SeedDb": true` in appsettings.Development.json
  
 
