@@ -6,14 +6,9 @@ namespace Notes_API.Controllers
 {
     [ApiController]
     [Route("api/")]
-    public class NotesController : ControllerBase
+    public class NotesController(INoteService noteService) : ControllerBase
     {
-        private readonly INoteService _noteService;
-
-        public NotesController(INoteService noteService)
-        {
-            _noteService = noteService;
-        }
+        private readonly INoteService _noteService = noteService;
 
         [Route("notes")]
         [HttpGet]
