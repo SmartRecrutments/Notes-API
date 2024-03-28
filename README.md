@@ -37,6 +37,11 @@ Start the server
 ```bash
   dotnet run
 ```
+Or simply open and press F5 using Dev Swagger profile in Visual Studio
+
+```code
+  src/Notes-API.sln
+```
 
 > [!NOTE]
 > For the lunch with Swagger, use VS "Dev Swagger" profile, then the Swagger page will open automatically after the run.
