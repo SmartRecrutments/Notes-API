@@ -1,12 +1,7 @@
 ﻿namespace Logic;
 
+using Logic.Interfaces;
 using Logic.Models;
-
-public interface IUserService
-{
-    Task<User> Authenticate(string username, string password);
-    Task<IEnumerable<User>> GetAll();
-}
 
 public class UserService : IUserService
 {

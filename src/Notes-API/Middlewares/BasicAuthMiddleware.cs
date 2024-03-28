@@ -1,6 +1,6 @@
 ﻿namespace Notes_API.Middlewares;
 
-using Logic;
+using Logic.Interfaces;
 using System.Net.Http.Headers;
 using System.Text;
 
