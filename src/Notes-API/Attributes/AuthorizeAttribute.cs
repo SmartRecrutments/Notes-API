@@ -1,6 +1,5 @@
 ﻿namespace Notes_API.Attributes;
 
-using Logic.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -14,7 +13,9 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
         if (allowAnonymous)
             return;
 
-        if (context.HttpContext.Items["User"] is not User user)
+        var user = context.HttpContext.Items["User"];
+
+        if (user == null)
         {
             context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
 
