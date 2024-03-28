@@ -1,16 +1,19 @@
 ﻿namespace Notes_API.Middlewares;
 
 using Logic.Interfaces;
+using Notes_API.Session;
 using System.Net.Http.Headers;
 using System.Text;
 
 public class BasicAuthMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly IUserSession _userSession;
 
-    public BasicAuthMiddleware(RequestDelegate next)
+    public BasicAuthMiddleware(RequestDelegate next, IUserSession userSession)
     {
         _next = next;
+        _userSession = userSession;
     }
 
     public async Task Invoke(HttpContext context, IUserService userService)
@@ -23,8 +26,10 @@ public class BasicAuthMiddleware
             var username = credentials[0];
             var password = credentials[1];
 
-            // authenticate credentials with user service and attach user to http context
-            context.Items["User"] = await userService.Authenticate(username, password);
+            var authenticatedUser = await userService.Authenticate(username, password);
+
+            context.Items["User"] = authenticatedUser;
+            _userSession.LogInUser(authenticatedUser ?? throw new ArgumentNullException("Authnticated user can't be null"));
         }
         catch
         {

@@ -12,7 +12,7 @@ public class UserService : IUserService
         new User { Id = 2, Username = "test2", Password = "test2" }
     };
 
-    public async Task<User> Authenticate(string username, string password)
+    public async Task<User?> Authenticate(string username, string password)
     {
         var user = await Task.Run(() => _users.SingleOrDefault(x => x.Username == username && x.Password == password));
 

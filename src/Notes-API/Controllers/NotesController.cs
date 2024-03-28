@@ -1,6 +1,7 @@
 using Logic.Interfaces;
 using Logic.Models;
 using Microsoft.AspNetCore.Mvc;
+using Notes_API.Session;
 using AuthorizeAttribute = Notes_API.Attributes.AuthorizeAttribute;
 
 namespace Notes_API.Controllers
@@ -8,9 +9,16 @@ namespace Notes_API.Controllers
     [Authorize]
     [ApiController]
     [Route("api/")]
-    public class NotesController(INoteService noteService) : ControllerBase
+    public class NotesController : ControllerBase
     {
-        private readonly INoteService _noteService = noteService;
+        private readonly INoteService _noteService;
+        private readonly User currenUser;
+
+        public NotesController(INoteService noteService, IUserSession userSession)
+        {
+            currenUser = userSession.GetLoggedUser() ?? throw new NullReferenceException();
+            _noteService = noteService;
+        }
 
         [Route("notes")]
         [HttpGet]
@@ -19,9 +27,7 @@ namespace Notes_API.Controllers
             if (pageSize < 1 || pageSize < 1)
                 return BadRequest("Page size or page numer can't be less than zero");
 
-            User? user = HttpContext.Items["User"] as User;
-
-            var notes = await _noteService.GetAllUserNotes(pageSize, page, user.Id);
+            var notes = await _noteService.GetAllUserNotes(pageSize, page, currenUser.Id);
 
             return Ok(notes);
         }
@@ -30,9 +36,7 @@ namespace Notes_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNoteById(int id)
         {
-            User? user = HttpContext.Items["User"] as User;
-
-            var note = await _noteService.GetById(id, user.Id);
+            var note = await _noteService.GetById(id, currenUser.Id);
 
             return Ok(note);
         }
@@ -41,11 +45,9 @@ namespace Notes_API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNotes(List<NoteModel> notes)
         {
-            User? user = HttpContext.Items["User"] as User;
-
             notes = notes.Select(note =>
             {
-                note.CreatedBy = user.Id;
+                note.CreatedBy = currenUser.Id;
                 return note;
             }).ToList();
 
@@ -60,7 +62,7 @@ namespace Notes_API.Controllers
         {
             await _noteService.Update(updateModel);
 
-            return Ok(await _noteService.GetById(updateModel.Id));    
+            return Ok(await _noteService.GetById(updateModel.Id));
         }
 
         [Route("note")]

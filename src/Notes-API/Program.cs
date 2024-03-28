@@ -8,6 +8,7 @@ using Logic.Mappers;
 using Logic.Models;
 using Notes_API.Middleware;
 using Notes_API.Middlewares;
+using Notes_API.Session;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IMapper<NoteModel, Note>, NoteModelToNoteMapper>();
 builder.Services.AddSingleton<IMapper<NoteUpdateModel, Note>, NoteUpdateModelToNoteMapper>();
+builder.Services.AddSingleton<IUserSession, UserSession>();
 
 var app = builder.Build();
 
@@ -31,10 +33,8 @@ if (app.Environment.IsDevelopment())
 
 if (builder.Configuration.GetValue<bool>("SeedDb"))
 {
-    using (var context = new NotesContext())
-    {
-        context.Database.EnsureCreated();
-    }
+    using var context = new NotesContext();
+    context.Database.EnsureCreated();
 }
 
 app.UseHttpsRedirection();
