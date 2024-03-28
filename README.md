@@ -19,6 +19,7 @@ Basic RESTful API for creating, reading, updating, and deleting notes. Users are
 System requirements:
  - .NET SDK 8.0.203+
  - Visual Studio Version 17.9.5+
+ - Google Chrome 123.0.6312.86+
 
 Clone the project
 
