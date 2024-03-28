@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Data.Interfaces;
+using Data.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Data
+namespace Data.Repositories
 {
     public class NoteRepository : INoteRepository
     {

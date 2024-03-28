@@ -2,14 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
-namespace Data
+namespace Data.Models
 {
-    public record Note 
+    public record Note
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        
+
         [IgnoreDataMember]
         public DateTime CreationDate { get; set; }
 
@@ -25,6 +25,6 @@ namespace Data
         public required string Title { get; set; }
 
         [IgnoreDataMember]
-        public required int? CreatedByUser { get; set; } 
+        public required int? CreatedByUser { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Data
+﻿using Data.Models;
+
+namespace Data.Interfaces
 {
     public interface INoteRepository
     {

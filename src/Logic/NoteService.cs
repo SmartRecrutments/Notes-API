@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using Data.Interfaces;
+using Data.Models;
 using Logic.Interfaces;
 using Logic.Models;
 

@@ -1,4 +1,4 @@
-﻿using Data;
+﻿using Data.Models;
 using Logic.Interfaces;
 using Logic.Models;
 
