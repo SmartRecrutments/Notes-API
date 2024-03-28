@@ -41,14 +41,14 @@ Start the server
 > [!NOTE]
 > For the lunch with Swagger, use VS "Dev Swagger" profile, then the Swagger page will open automatically after the run.
 
-By default, the application has two users seeded 
+By default, the application has two users seeded
 ```code
-  Id: 1, Username : "test1", Password : "test1"
-  Id: 2, Username : "test2", Password : "test2""
+  Id: 1, Username: "test1", Password: "test1"
+  Id: 2, Username: "test2", Password: "test2"
 ```
 > [!NOTE]
 > At first swagger lunch login popup will appear during the first request to the API, provide the credentials from above. 
-> Make sure that you clear browsing history for the switching users(for login popup to appear again).
+> Make sure that you clear the browsing history for the switching users(for the login popup to appear again).
 
 > [!TIP]
 > You can choose if want to seed the in-memory DB by setting  
