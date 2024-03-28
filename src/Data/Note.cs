@@ -9,7 +9,7 @@ namespace Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-
+        
         [IgnoreDataMember]
         public DateTime CreationDate { get; set; }
 

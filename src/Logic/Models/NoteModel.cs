@@ -4,8 +4,6 @@ namespace Logic.Models
 {
     public record NoteModel
     {
-        public required int Id { get; set; }
-
         [MinLength(1)]
         [MaxLength(1000)]
         public required string Content { get; set; }

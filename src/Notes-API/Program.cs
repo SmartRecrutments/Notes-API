@@ -3,6 +3,7 @@ using Logic;
 using Logic.Interfaces;
 using Logic.Mappers;
 using Logic.Models;
+using Notes_API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,8 @@ if (builder.Configuration.GetValue<bool>("SeedDb"))
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 

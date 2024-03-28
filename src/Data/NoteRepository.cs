@@ -39,7 +39,7 @@ namespace Data
         public async Task<List<Note>> GetAll(int pageSize, int page)
         {
             using var context = new NotesContext();
-            return await context.Notes.Skip(page * pageSize).Take(pageSize).ToListAsync(); //TODO: spradzic lepsze rozwiazanie
+            return await context.Notes.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(); //TODO: spradzic lepsze rozwiazanie
         }
 
         public async Task Update(Note updateModel)

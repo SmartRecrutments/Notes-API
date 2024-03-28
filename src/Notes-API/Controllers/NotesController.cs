@@ -14,8 +14,8 @@ namespace Notes_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNotes(int pageSize, int page)
         {
-            if (pageSize < 0 || pageSize < 0)
-                return BadRequest("Page or page numer can't be negative");
+            if (pageSize < 1 || pageSize < 1)
+                return BadRequest("Page size or page numer can't be less than zero");
 
             var notes = await _noteService.GetAllNotes(pageSize, page);
 
@@ -37,12 +37,12 @@ namespace Notes_API.Controllers
         {
             await _noteService.Create(notes);
 
-            return Ok();   
+            return Ok();   //zwrocic stworzony objekt
         }
 
         [Route("note")]
         [HttpPut]
-        public async Task<IActionResult> Update(NoteModel updateModel)
+        public async Task<IActionResult> Update(NoteUpdateModel updateModel)
         {
             await _noteService.Update(updateModel);
 

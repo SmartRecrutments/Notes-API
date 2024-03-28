@@ -4,19 +4,21 @@ using Logic.Models;
 
 namespace Logic
 {
-    public class NoteService(INoteRepository noteRepository, IMapper<NoteModel, Note> mapper) : INoteService
+    public class NoteService(
+        INoteRepository noteRepository,
+        IMapper<NoteModel, Note> noteModelToNoteMapper) : INoteService
     {
-        private readonly IMapper<NoteModel, Note> _mapper = mapper;
+        private readonly IMapper<NoteModel, Note> _noteModelToNoteMapper = noteModelToNoteMapper;
         private readonly INoteRepository _noteRepository = noteRepository;
 
         public async Task Create(List<NoteModel> notes)
         {
-            await _noteRepository.Create(notes.Select(_mapper.Map).ToList());
+            await _noteRepository.Create(notes.Select(_noteModelToNoteMapper.Map).ToList());
         }
 
-        public Task Delete(int Id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await _noteRepository.DeleteById(id);
         }
 
         public async Task<List<Note>> GetAllNotes(int pageSize, int page)
@@ -33,9 +35,10 @@ namespace Logic
             return await _noteRepository.GetByIds(ids);
         }
 
-        public async Task Update(NoteModel updateModel)
+        public async Task Update(NoteUpdateModel updateModel)
         {
-            await _noteRepository.Update(_mapper.Map(updateModel));
+            var noteToUpdate = await _noteRepository.GetById(updateModel.Id);
+            await _noteRepository.Update(noteToUpdate);
         }
     }
 }

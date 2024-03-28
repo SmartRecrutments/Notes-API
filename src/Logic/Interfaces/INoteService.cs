@@ -9,7 +9,7 @@ namespace Logic.Interfaces
         public Task Create(List<NoteModel> noteModel);
         public Task<Note> GetById(int Id);
         Task<List<Note>> GetByIds(List<int> ids);
-        public Task Update(NoteModel updateModel);
+        public Task Update(NoteUpdateModel updateModel);
         public Task Delete (int Id);
     }
 }
