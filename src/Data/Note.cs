@@ -23,5 +23,8 @@ namespace Data
         [MinLength(1)]
         [MaxLength(1000)]
         public required string Title { get; set; }
+
+        [IgnoreDataMember]
+        public required int? CreatedByUser { get; set; } 
     }
 }

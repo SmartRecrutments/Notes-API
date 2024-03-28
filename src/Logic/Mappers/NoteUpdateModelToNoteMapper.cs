@@ -4,15 +4,16 @@ using Logic.Models;
 
 namespace Logic.Mappers
 {
-    public class NoteModelToNoteMapper : IMapper<NoteModel, Note>
+    public class NoteUpdateModelToNoteMapper : IMapper<NoteUpdateModel, Note>
     {
-        public Note Map(NoteModel model)
+        public Note Map(NoteUpdateModel model)
         {
             return new Note
             {
                 Title = model.Title,
                 Content = model.Content,
-                CreatedByUser = model.CreatedBy
+                CreatedByUser = model.CreatedBy,
+                Id = model.Id
             };
         }
     }

@@ -41,6 +41,12 @@ namespace Data
             using var context = new NotesContext();
             return await context.Notes.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(); //TODO: spradzic lepsze rozwiazanie
         }
+        public async Task<List<Note>> GetAllByUserId(int pageSize, int page, int id)
+        {
+            using var context = new NotesContext();
+            return await context.Notes.Where(n => n.CreatedByUser == id)
+                .Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(); //TODO: spradzic lepsze rozwiazanie
+        }
 
         public async Task Update(Note updateModel)
         {
@@ -52,6 +58,12 @@ namespace Data
             noteToUpdate.UpdateTime = DateTime.Now;
 
             await context.SaveChangesAsync();
+        }
+
+        public async Task<Note> GetById(int id, int userId)
+        {
+            using var context = new NotesContext();
+            return await context.Notes.FirstAsync(n => n.Id == id && n.CreatedByUser == userId);
         }
     }
 }

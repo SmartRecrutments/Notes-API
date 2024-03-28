@@ -1,9 +1,11 @@
 using Logic.Interfaces;
 using Logic.Models;
 using Microsoft.AspNetCore.Mvc;
+using AuthorizeAttribute = Notes_API.Attributes.AuthorizeAttribute;
 
 namespace Notes_API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/")]
     public class NotesController(INoteService noteService) : ControllerBase
@@ -17,7 +19,9 @@ namespace Notes_API.Controllers
             if (pageSize < 1 || pageSize < 1)
                 return BadRequest("Page size or page numer can't be less than zero");
 
-            var notes = await _noteService.GetAllNotes(pageSize, page);
+            User? user = HttpContext.Items["User"] as User;
+
+            var notes = await _noteService.GetAllUserNotes(pageSize, page, user.Id);
 
             return Ok(notes);
         }
@@ -26,7 +30,9 @@ namespace Notes_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNoteById(int id)
         {
-            var note = await _noteService.GetById(id);
+            User? user = HttpContext.Items["User"] as User;
+
+            var note = await _noteService.GetById(id, user.Id);
 
             return Ok(note);
         }
@@ -35,6 +41,14 @@ namespace Notes_API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNotes(List<NoteModel> notes)
         {
+            User? user = HttpContext.Items["User"] as User;
+
+            notes = notes.Select(note =>
+            {
+                note.CreatedBy = user.Id;
+                return note;
+            }).ToList();
+
             await _noteService.Create(notes);
 
             return Ok();   //zwrocic stworzony objekt

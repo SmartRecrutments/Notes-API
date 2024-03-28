@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Logic.Models
 {
@@ -11,5 +12,8 @@ namespace Logic.Models
         [MinLength(1)]
         [MaxLength(1000)]
         public required string Title { get; set; }
+
+        [JsonIgnore]
+        public int CreatedBy { get; set; }
     }
 }
