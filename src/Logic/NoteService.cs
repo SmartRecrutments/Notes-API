@@ -10,48 +10,34 @@ namespace Logic
         IMapper<NoteModel, Note> noteModelToNoteMapper,
         IMapper<NoteUpdateModel, Note> noteUpdateModelToNoteMapper) : INoteService
     {
-        private readonly IMapper<NoteModel, Note> _noteModelToNoteMapper = noteModelToNoteMapper;
-        private readonly IMapper<NoteUpdateModel, Note> _noteToUpdateModelToNoteMapper = noteUpdateModelToNoteMapper;
-        private readonly INoteRepository _noteRepository = noteRepository;
-
         public async Task Create(List<NoteModel> notes)
         {
-            await _noteRepository.Create(notes.Select(_noteModelToNoteMapper.Map).ToList());
+            await noteRepository.Create(notes.Select(noteModelToNoteMapper.Map).ToList());
         }
 
         public async Task Delete(int id)
         {
-            await _noteRepository.DeleteById(id);
-        }
-
-        public async Task<List<Note>> GetAllNotes(int pageSize, int page)
-        {
-            return await _noteRepository.GetAll(pageSize, page);
+            await noteRepository.DeleteById(id);
         }
 
         public async Task<List<Note>> GetAllUserNotes(int pageSize, int page, int userId)
         {
-            return await _noteRepository.GetAllByUserId(pageSize, page, userId);
+            return await noteRepository.GetAllByUserId(pageSize, page, userId);
         }
 
         public async Task<Note> GetById(int id)
         {
-            return await _noteRepository.GetById(id);
+            return await noteRepository.GetById(id);
         }
 
         public async Task<Note> GetById(int id, int userId)
         {
-            return await _noteRepository.GetById(id, userId);
-        }
-
-        public async Task<List<Note>> GetByIds(List<int> ids)
-        {
-            return await _noteRepository.GetByIds(ids);
+            return await noteRepository.GetById(id, userId);
         }
 
         public async Task Update(NoteUpdateModel updateModel)
         {
-            await _noteRepository.Update(_noteToUpdateModelToNoteMapper.Map(updateModel));
+            await noteRepository.Update(noteUpdateModelToNoteMapper.Map(updateModel));
         }
     }
 }

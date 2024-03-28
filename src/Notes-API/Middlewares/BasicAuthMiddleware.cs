@@ -24,6 +24,7 @@ public class BasicAuthMiddleware(RequestDelegate next, IUserSession userSession)
         }
         catch
         {
+            throw new AuthenticationFailureException("Authentication failed", ex);
         }
 
         await next(context);

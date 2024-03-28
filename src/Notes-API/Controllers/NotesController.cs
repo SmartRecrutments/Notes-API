@@ -46,7 +46,7 @@ namespace Notes_API.Controllers
 
             await noteService.Create(notes);
 
-            return Ok();   //zwrocic stworzony objekt
+            return Ok();
         }
 
         [Route("note")]

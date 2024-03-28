@@ -1,7 +1,7 @@
 ﻿namespace Logic.Interfaces
 {
-    public interface IMapper<In, Out>
+    public interface IMapper<in TIn, out TOut>
     {
-        Out Map(In model);
+        TOut Map(TIn model);
     }
 }
