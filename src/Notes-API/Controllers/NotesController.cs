@@ -9,25 +9,18 @@ namespace Notes_API.Controllers
     [Authorize]
     [ApiController]
     [Route("api/")]
-    public class NotesController : ControllerBase
+    public class NotesController(INoteService noteService, IUserSession userSession) : ControllerBase
     {
-        private readonly INoteService _noteService;
-        private readonly User currenUser;
-
-        public NotesController(INoteService noteService, IUserSession userSession)
-        {
-            currenUser = userSession.GetLoggedUser() ?? throw new NullReferenceException();
-            _noteService = noteService;
-        }
+        private readonly User _currentUser = userSession.GetLoggedUser() ?? throw new NullReferenceException();
 
         [Route("notes")]
         [HttpGet]
         public async Task<IActionResult> GetNotes(int pageSize, int page)
         {
-            if (pageSize < 1 || pageSize < 1)
-                return BadRequest("Page size or page numer can't be less than zero");
+            if (pageSize is < 1 or < 1)
+                return BadRequest("Page size or page number can't be less than zero");
 
-            var notes = await _noteService.GetAllUserNotes(pageSize, page, currenUser.Id);
+            var notes = await noteService.GetAllUserNotes(pageSize, page, _currentUser.Id);
 
             return Ok(notes);
         }
@@ -36,7 +29,7 @@ namespace Notes_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNoteById(int id)
         {
-            var note = await _noteService.GetById(id, currenUser.Id);
+            var note = await noteService.GetById(id, _currentUser.Id);
 
             return Ok(note);
         }
@@ -47,11 +40,11 @@ namespace Notes_API.Controllers
         {
             notes = notes.Select(note =>
             {
-                note.CreatedBy = currenUser.Id;
+                note.CreatedBy = _currentUser.Id;
                 return note;
             }).ToList();
 
-            await _noteService.Create(notes);
+            await noteService.Create(notes);
 
             return Ok();   //zwrocic stworzony objekt
         }
@@ -60,16 +53,16 @@ namespace Notes_API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(NoteUpdateModel updateModel)
         {
-            await _noteService.Update(updateModel);
+            await noteService.Update(updateModel);
 
-            return Ok(await _noteService.GetById(updateModel.Id));
+            return Ok(await noteService.GetById(updateModel.Id));
         }
 
         [Route("note")]
         [HttpDelete]
         public async Task<IActionResult> Delete(int Id)
         {
-            await _noteService.Delete(Id);
+            await noteService.Delete(Id);
 
             return NoContent();
         }

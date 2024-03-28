@@ -4,13 +4,13 @@ namespace Notes_API.Session
 {
     public sealed class UserSession : IUserSession
     {
-        private static User? loggedUser;
+        private static User? _loggedUser;
 
-        public User? GetLoggedUser() => loggedUser;
+        public User? GetLoggedUser() => _loggedUser;
 
         public void LogInUser(User user)
         {
-            loggedUser = user;
+            _loggedUser = user;
         }
     }
 }
