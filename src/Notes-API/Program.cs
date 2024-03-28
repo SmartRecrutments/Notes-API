@@ -6,7 +6,6 @@ using Logic;
 using Logic.Interfaces;
 using Logic.Mappers;
 using Logic.Models;
-using Notes_API.Middleware;
 using Notes_API.Middlewares;
 using Notes_API.Session;
 

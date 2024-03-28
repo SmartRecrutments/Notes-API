@@ -1,20 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Notes_API.Middleware
+namespace Notes_API.Middlewares
 {
-    public class ExceptionHandlingMiddleware
+    public class ExceptionHandlingMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public ExceptionHandlingMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
             {
-                await _next(httpContext);
+                await next(httpContext);
             }
             catch (InvalidOperationException exception)
             {
@@ -34,8 +28,6 @@ namespace Notes_API.Middleware
             {
                 var problemDetails = new ProblemDetails
                 {
-                    Status = httpContext.Response.StatusCode,
-                    Title = "Something went wrong",
                     Detail = exception.Message
                 };
 

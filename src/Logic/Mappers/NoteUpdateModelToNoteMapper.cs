@@ -13,6 +13,7 @@ namespace Logic.Mappers
                 Title = model.Title,
                 Content = model.Content,
                 CreatedByUser = model.CreatedBy,
+                UpdatedByUser = model.UpdatedByUser,
                 Id = model.Id
             };
         }

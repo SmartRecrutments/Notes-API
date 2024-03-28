@@ -26,5 +26,8 @@ namespace Data.Models
 
         [IgnoreDataMember]
         public required int? CreatedByUser { get; set; }
+        
+        [IgnoreDataMember]
+        public int? UpdatedByUser { get; set; }
     }
 }

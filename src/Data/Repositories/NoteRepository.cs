@@ -23,12 +23,6 @@ namespace Data.Repositories
             return await context.Notes.FirstAsync(n => n.Id == id);
         }
 
-        public async Task<List<Note>> GetByIds(List<int> ids)
-        {
-            await using var context = new NotesContext();
-            return await context.Notes.Where(n => ids.Contains(n.Id)).ToListAsync();
-        }
-
         public async Task DeleteById(int id)
         {
             await using var context = new NotesContext();
@@ -38,11 +32,6 @@ namespace Data.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task<List<Note>> GetAll(int pageSize, int page)
-        {
-            await using var context = new NotesContext();
-            return await context.Notes.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-        }
         public async Task<List<Note>> GetAllByUserId(int pageSize, int page, int id)
         {
             await using var context = new NotesContext();
@@ -57,6 +46,7 @@ namespace Data.Repositories
 
             noteToUpdate.Title = updateModel.Title;
             noteToUpdate.Content = updateModel.Content;
+            noteToUpdate.UpdatedByUser = updateModel.UpdatedByUser;
             noteToUpdate.UpdateTime = DateTime.Now;
 
             await context.SaveChangesAsync();

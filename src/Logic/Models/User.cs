@@ -8,5 +8,5 @@ public class User
     public required string Username { get; set; }
 
     [JsonIgnore]
-    public string Password { get; set; }
+    public required string Password { get; set; }
 }

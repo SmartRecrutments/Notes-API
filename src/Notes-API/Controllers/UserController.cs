@@ -7,10 +7,10 @@ public class UserController(IUserService userService) : ControllerBase
 {
     [Route("user")]
     [HttpPost]
-    public Task<IActionResult> AddUser(string username, string password)
+    public IActionResult AddUser(string username, string password)
     {
         userService.Register(username, password);
 
-        return Task.FromResult<IActionResult>(Ok());
+        return Ok();
     }
 }

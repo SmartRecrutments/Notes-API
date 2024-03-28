@@ -10,6 +10,6 @@ namespace Logic.Interfaces
         public Task<Note> GetById(int id, int userId);
         public Task<Note> GetById(int id);
         public Task Update(NoteUpdateModel updateModel);
-        public Task Delete (int Id);
+        public Task Delete (int id);
     }
 }

@@ -53,6 +53,7 @@ namespace Notes_API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(NoteUpdateModel updateModel)
         {
+            updateModel.UpdatedByUser = _currentUser.Id;
             await noteService.Update(updateModel);
 
             return Ok(await noteService.GetById(updateModel.Id));
