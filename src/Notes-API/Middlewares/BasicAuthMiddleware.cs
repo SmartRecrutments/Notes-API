@@ -32,7 +32,7 @@ public class BasicAuthMiddleware(RequestDelegate next, IUserSession userSession)
                 }
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new AuthenticationFailureException("Authentication failed", ex);
         }
