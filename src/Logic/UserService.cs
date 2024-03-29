@@ -8,7 +8,7 @@ public class UserService : IUserService
     private readonly List<User> _users =
     [
         new User { Id = 1, Username = "test1", Password = "test1" },
-        new User { Id = 2, Username = "test2", Password = "test2" } // Passwords stored in plain format without hash for demo purposes 
+        new User { Id = 2, Username = "test2", Password = "test2" } // Passwords are stored in plain format without hash for demo purposes 
     ];
 
     public async Task<User?> Authenticate(string username, string password)
