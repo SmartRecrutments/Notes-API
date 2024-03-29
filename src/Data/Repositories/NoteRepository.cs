@@ -42,7 +42,7 @@ namespace Data.Repositories
         public async Task Update(Note updateModel)
         {
             await using var context = new NotesContext();
-            var noteToUpdate = await context.Notes.FirstAsync(n => n.Id == updateModel.Id); // Can be used hashmap for performance boost
+            var noteToUpdate = await context.Notes.FirstAsync(n => n.Id == updateModel.Id); // Can be used hashmap for the performance boost
                                                                                                 // Logic written for SQL DB future use, so hashmap has not been added
             noteToUpdate.Title = updateModel.Title;
             noteToUpdate.Content = updateModel.Content;
