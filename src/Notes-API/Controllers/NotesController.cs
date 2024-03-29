@@ -17,7 +17,7 @@ namespace Notes_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNotes(int pageSize, int page)
         {
-            if (pageSize is < 1 or < 1)
+            if (pageSize < 1 || page < 1 )
                 return BadRequest("Page size or page number can't be less than zero");
 
             var notes = await noteService.GetAllUserNotes(pageSize, page, _currentUser.Id);
