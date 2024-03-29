@@ -14,8 +14,6 @@ namespace Notes_API.Middlewares
             {
                 var problemDetails = new ProblemDetails
                 {
-                    Status = StatusCodes.Status400BadRequest,
-                    Title = "Bad request",
                     Detail = exception.Message
                 };
 

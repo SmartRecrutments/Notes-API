@@ -19,7 +19,7 @@ namespace Logic
         {
             var noteToDelete = await GetById(id, userId);
 
-            await noteRepository.DeleteById(noteToDelete.CreatedByUser);
+            await noteRepository.DeleteById(noteToDelete.Id);
         }
 
         public async Task<List<Note>> GetAllUserNotes(int pageSize, int page, int userId)
@@ -39,6 +39,8 @@ namespace Logic
 
         public async Task Update(NoteUpdateModel updateModel)
         {
+            await GetById(updateModel.Id, updateModel.UpdatedByUser);
+
             await noteRepository.Update(noteUpdateModelToNoteMapper.Map(updateModel));
         }
     }
