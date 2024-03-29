@@ -25,7 +25,7 @@ namespace Notes_API.Controllers
             return Ok(notes);
         }
 
-        [Route("note")]
+        [Route("note/{id:int}")]
         [HttpGet]
         public async Task<IActionResult> GetNoteById(int id)
         {
@@ -59,7 +59,7 @@ namespace Notes_API.Controllers
             return Ok(await noteService.GetById(updateModel.Id));
         }
 
-        [Route("note")]
+        [Route("note/{id:int}")]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
