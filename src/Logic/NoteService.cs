@@ -15,9 +15,11 @@ namespace Logic
             await noteRepository.Create(notes.Select(noteModelToNoteMapper.Map).ToList());
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(int id, int userId)
         {
-            await noteRepository.DeleteById(id);
+            var noteToDelete = await GetById(id, userId);
+
+            await noteRepository.DeleteById(noteToDelete.CreatedByUser);
         }
 
         public async Task<List<Note>> GetAllUserNotes(int pageSize, int page, int userId)

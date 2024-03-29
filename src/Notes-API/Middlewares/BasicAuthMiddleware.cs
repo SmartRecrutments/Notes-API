@@ -16,7 +16,7 @@ public class BasicAuthMiddleware(RequestDelegate next, IUserSession userSession)
         {
             if (!StringValues.IsNullOrEmpty(context.Request.Headers.Authorization))
             {
-                var authHeader = AuthenticationHeaderValue.Parse(context.Request.Headers.Authorization);
+                var authHeader = AuthenticationHeaderValue.Parse(context.Request.Headers.Authorization!);
                 if (authHeader.Parameter != null)
                 {
                     var credentialBytes = Convert.FromBase64String(authHeader.Parameter);

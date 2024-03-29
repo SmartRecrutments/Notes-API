@@ -6,12 +6,23 @@ using Logic;
 using Logic.Interfaces;
 using Logic.Mappers;
 using Logic.Models;
+using Microsoft.AspNetCore.Mvc;
+using Notes_API.Filters;
 using Notes_API.Middlewares;
 using Notes_API.Session;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ValidationFilter());
+});
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);

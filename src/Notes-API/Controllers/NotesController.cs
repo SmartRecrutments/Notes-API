@@ -61,9 +61,9 @@ namespace Notes_API.Controllers
 
         [Route("note")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<IActionResult> Delete(int id)
         {
-            await noteService.Delete(Id);
+            await noteService.Delete(id, _currentUser.Id);
 
             return NoContent();
         }
