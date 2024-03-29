@@ -22,9 +22,4 @@ public class UserService : IUserService
     {
         _users.Add(new User() { Id = _users.Last().Id + 1, Username = username, Password = password });
     }
-
-    public async Task<IEnumerable<User>> GetAll()
-    {
-        return await Task.Run(() => _users);
-    }
 }
