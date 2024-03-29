@@ -8,7 +8,7 @@ namespace Data.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; } // Used int Id for demo purposes, use GIUD for prod
 
         [IgnoreDataMember]
         public DateTime CreationDate { get; set; }

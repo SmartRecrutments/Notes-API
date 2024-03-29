@@ -36,14 +36,14 @@ namespace Data.Repositories
         {
             await using var context = new NotesContext();
             return await context.Notes.Where(n => n.CreatedByUser == id)
-                .Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+                .Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(); // Guid Id will eliminate the increment logic
         }
 
         public async Task Update(Note updateModel)
         {
             await using var context = new NotesContext();
-            var noteToUpdate = await context.Notes.FirstAsync(n => n.Id == updateModel.Id);
-
+            var noteToUpdate = await context.Notes.FirstAsync(n => n.Id == updateModel.Id); // Can be used hashmap for performance boost
+                                                                                                // Logic written for SQL DB future use, so hashmap has not been added
             noteToUpdate.Title = updateModel.Title;
             noteToUpdate.Content = updateModel.Content;
             noteToUpdate.UpdatedByUser = updateModel.UpdatedByUser;
