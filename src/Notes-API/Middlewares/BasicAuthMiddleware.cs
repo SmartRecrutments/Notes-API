@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Primitives;
-
-namespace Notes_API.Middlewares;
-
 using Logic.Interfaces;
-using Session;
 using System.Net.Http.Headers;
 using System.Text;
+using Notes_API.Session;
+
+namespace Notes_API.Middlewares;
 
 public class BasicAuthMiddleware(RequestDelegate next, IUserSession userSession)
 {
