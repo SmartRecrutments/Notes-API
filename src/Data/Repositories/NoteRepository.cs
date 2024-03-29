@@ -36,7 +36,7 @@ namespace Data.Repositories
         {
             await using var context = new NotesContext();
             return await context.Notes.Where(n => n.CreatedByUser == id)
-                .Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(); // Guid Id will eliminate the increment logic
+                .Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(); // GUID Id will eliminate the increment logic
         }
 
         public async Task Update(Note updateModel)
